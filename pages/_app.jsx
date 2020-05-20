@@ -2,7 +2,6 @@ import App, { Container } from 'next/app';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { CookiesProvider } from 'react-cookie';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import withApolloClient from '../lib/with-apollo-client';
 
 class MyApp extends App {

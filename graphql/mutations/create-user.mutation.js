@@ -2,7 +2,7 @@ import { GraphQLError, GraphQLString } from 'graphql';
 import { UserType } from '../types/user.type';
 import { Response, UNEXPECTED_ERROR, MISSING_PARAMETERS } from '../utils/responses.utils';
 import { serialize } from "cookie";
-import { config } from "../../../config";
+import { config } from "../../config";
 
 export const CreateUser = () => ({
   type: UserType,

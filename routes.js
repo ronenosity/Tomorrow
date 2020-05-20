@@ -1,5 +1,5 @@
 /* prettier-ignore */
-const routes = require('next-routes')
+const routes = require('next-routes');
 
 module.exports = routes()
   .add({
@@ -12,6 +12,6 @@ module.exports = routes()
     pattern: '/:c?/:t?',
     page: '',
   })
-    .add({
-        name: 'graphql',
-    })
+  .add({
+    name: 'graphql',
+  });

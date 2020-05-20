@@ -1,9 +1,8 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { get } from 'lodash';
 import { Link } from '../../routes';
-
 import { scheme } from '../../lib/theme';
 import { QueryStringConsumer } from '../../lib/query.context';
 

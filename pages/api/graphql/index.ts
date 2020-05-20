@@ -1,17 +1,17 @@
 import graphqlHTTP from "express-graphql";
 import Cors from 'cors';
 import cookieParser from 'cookie-parser';
-import { GraphQLService } from '../../../graphql/graphql/graphql.service';
-import { Loaders } from '../../../graphql/graphql/graphql.loaders';
+import { GraphQLService } from '../../../graphql/graphql.service';
+import { Loaders } from '../../../graphql/graphql.loaders';
 import { authService } from '../../../services/auth.service';
-import { Security } from '../../../graphql/graphql/security/security';
+import { Security } from '../../../graphql/security/security';
 
-const isDev = process.env.ENV === 'development';
+// const isDev = process.env.ENV === 'development';
 
 import cookies from '../../../cookies';
 
 import dbConnect from "../../../database/db";
-import { config } from "../../../config";
+// import { config } from "../../../config";
 
 const cors = Cors({
     methods: ['GET', 'HEAD', 'POST'],

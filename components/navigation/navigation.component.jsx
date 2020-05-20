@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { useCookies } from 'react-cookie';
-import Router from 'next/router';
 
 import Auth from '../shared/auth/auth.component';
 
@@ -20,12 +19,6 @@ const Navigation = styled.nav`
   padding: 0 40px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.08);
   z-index: 20;
-`;
-
-const StickyNav = styled.div`
-  position: sticky;
-  top: 0;
-  width: 100%;
 `;
 
 const RotateAnimation = keyframes`
@@ -134,12 +127,22 @@ const NavAuth = styled.div`
   flex: 1;
 `;
 
+const NavItem = styled.a`
+  display: flex;
+  flex-direction: column !important;
+  ${({ selected }) => {
+    if (selected) {
+      return `color: ${scheme.gray[1]} !important;
+      background-color: ${scheme.gray[7]} !important;`;
+    }
+    return '';
+  }};
+`;
 const LOGOUT_MUTATION = gql`
   mutation LOGOUT_MUTATION {
     logout
   }
 `;
-
 
 
 export default () => {
@@ -149,92 +152,92 @@ export default () => {
       data: { logout },
     } = await signout();
     if (logout) {
-      removeCookie('token', { path: '/' })
+      removeCookie('token', { path: '/' });
       window.location.reload();
     }
   }
   return (
-      <Auth>
-        {({data: {auth}}) => (
-            <Navigation>
+    <Auth>
+      {({ data: { auth } }) => (
+        <Navigation>
+          <Link href="/">
+            <NavMeta>
+              <AppLogo>
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K"
+                  alt=""
+                  height="40"
+                />
+              </AppLogo>
+              <AppInfo>
+                <AppTitle>
+                  <span>Reactive</span>
+                  {' '}
+                  Community
+                </AppTitle>
+                <AppSubtitle>Where communities happen</AppSubtitle>
+              </AppInfo>
+            </NavMeta>
+          </Link>
+          <NavSection>
+            <NavElement>
               <Link href="/">
-                <NavMeta>
-                  <AppLogo>
-                    <img
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K"
-                        alt=""
-                        height="40"
-                    />
-                  </AppLogo>
-                  <AppInfo>
-                    <AppTitle>
-                      <span>Reactive</span> Community
-                    </AppTitle>
-                    <AppSubtitle>Where communities happen</AppSubtitle>
-                  </AppInfo>
-                </NavMeta>
+                <NavItem selected>
+                  Dashboard
+                  <span>What's new</span>
+                </NavItem>
               </Link>
-              <NavSection>
+            </NavElement>
+            {auth && (
+            <NavElement>
+              <Link href="/">
+                <NavItem>
+                  Messages
+                  <span>Your inbox</span>
+                </NavItem>
+              </Link>
+            </NavElement>
+            )}
+            <NavElement>
+              <Link href="/">
+                <NavItem>
+                  Explore
+                  <span>Discover communities</span>
+                </NavItem>
+              </Link>
+            </NavElement>
+          </NavSection>
+          <NavAuth>
+            {!auth ? (
+              <>
                 <NavElement>
-                  <Link href="/">
-                    <a className="active">
-                      Dashboard
-                      <span>What's new</span>
-                    </a>
+                  <Link href="/authenticate">
+                    <a>Sign In / Sign Up</a>
                   </Link>
                 </NavElement>
-                {auth && (
+              </>
+            ) : (
+              <Mutation mutation={LOGOUT_MUTATION}>
+                {(signout, { error, loading, data }) => (
+                  <>
                     <NavElement>
-                      <Link href="/">
-                        <a>
-                          Messages
-                          <span>Your inbox</span>
-                        </a>
+                      <Link href="/admin">
+                        <NavItem>
+                          Admin
+                          <span>Add Communities</span>
+                        </NavItem>
                       </Link>
                     </NavElement>
+                    <NavElement onClick={() => handleSignout(signout)}>
+                      <NavItem>Sign out</NavItem>
+                    </NavElement>
+                  </>
                 )}
-                <NavElement>
-                  <Link href="/">
-                    <a>
-                      Explore
-                      <span>Discover communities</span>
-                    </a>
-                  </Link>
-                </NavElement>
-              </NavSection>
-              <NavAuth>
-                {!auth ? (
-                    <>
-                      <NavElement>
-                        <Link href="/authenticate">
-                          <a>Sign In / Sign Up</a>
-                        </Link>
-                      </NavElement>
-                    </>
-                ) : (
-                    <Mutation mutation={LOGOUT_MUTATION}>
-                      {(signout, {error, loading, data}) => {
-                        return (
-                            <>
-                              <NavElement>
-                                <Link href="/admin">
-                                  <a className="active">
-                                    Admin
-                                    <span>Add Communities</span>
-                                  </a>
-                                </Link>
-                              </NavElement>
-                              <NavElement onClick={() => handleSignout(signout)}>
-                                <a>Sign out</a>
-                              </NavElement>
-                            </>
-                        );
-                      }}
-                    </Mutation>
-                )}
-              </NavAuth>
-            </Navigation>
-        )}
-      </Auth>
+              </Mutation>
+            )}
+          </NavAuth>
+        </Navigation>
+      )}
+    </Auth>
   );
 };

@@ -133,7 +133,7 @@ class Login extends Component {
       if (authenticate.id) {
         // await localStorage.setItem('token', JSON.stringify(authenticate.token));
         const { cookies } = this.props;
-
+        cookies.remove('token', { path: '/' });
         cookies.set('token', authenticate.token, { path: '/' });
         this.setState({ token: authenticate.token });
         window.location.href = '/';

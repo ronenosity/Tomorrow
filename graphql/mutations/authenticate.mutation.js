@@ -1,7 +1,7 @@
 import { GraphQLNonNull, GraphQLString, GraphQLError } from 'graphql';
 import { UserType } from '../types/user.type';
 import { Response, NOT_FOUND, MISSING_PARAMETERS } from '../utils/responses.utils';
-import { config } from '../../../config';
+import { config } from '../../config';
 import { serialize } from 'cookie';
 
 export const AuthenticateMutation = () => ({
