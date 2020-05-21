@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { QueryStringProvider } from '../../lib/query.context';
@@ -20,22 +21,20 @@ const Dashboard = styled.div`
   grid-template-columns: 350px 450px auto;
 `;
 
-export default props => {
-    return (
-        <>
-            <Head>
-                <title>RFS | Dashboard</title>
-            </Head>
-            <QueryStringProvider queryString={props.query}>
-                <App>
-                    <Dashboard>
-                        <Navigation />
-                        <Communities />
-                        {props.query.c && <Threads community={props.query.c} />}
-                        {props.query.t && <Thread community={props.query.c} thread={props.query.t} />}
-                    </Dashboard>
-                </App>
-            </QueryStringProvider>
-        </>
-    );
-};
+export default (props) => (
+  <>
+    <Head>
+      <title>RFS | Dashboard</title>
+    </Head>
+    <QueryStringProvider queryString={props.query}>
+      <App>
+        <Dashboard>
+          <Navigation />
+          <Communities />
+          {props.query.c && <Threads community={props.query.c} />}
+          {props.query.t && <Thread community={props.query.c} thread={props.query.t} />}
+        </Dashboard>
+      </App>
+    </QueryStringProvider>
+  </>
+);

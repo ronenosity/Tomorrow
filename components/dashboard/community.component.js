@@ -16,7 +16,7 @@ const Community = styled.div`
   cursor: pointer;
   user-select: none;
   transition: background 0.3s ease-in-out;
-  background-color: ${props => (props.active ? scheme.white : scheme.gray[1])};
+  background-color: ${(props) => (props.active ? scheme.white : scheme.gray[1])};
 
   &:hover {
     background-color: ${scheme.white};
@@ -31,7 +31,7 @@ const CommunityPicture = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-image: url(${props => props.picture});
+  background-image: url(${(props) => props.picture});
   margin-right: 20px;
 `;
 
@@ -136,36 +136,37 @@ const CommunityStatValue = styled.div`
   margin-left: 5px;
 `;
 
-export default props => {
-  return (
-    <QueryStringConsumer>
-      {queryString => {
-        const activeCommunity = queryString.c === props.community.slug;
-        return (
-          <>
-            {activeCommunity && (
-              <Head>
-                <title>RFS | {get(props, 'community.name')}</title>
-              </Head>
-            )}
-            <Link route="dashboard" params={{ c: props.community.slug }}>
-              <Community active={activeCommunity}>
-                <CommunityPicture picture={props.community.picture} />
-                <CommunityDetails>
-                  <CommunityName>{get(props, 'community.name')}</CommunityName>
-                  <CommunityDescription>{props.community.description}</CommunityDescription>
-                  <CommunityStats>
-                    <CommunityStat data-tooltip={`Threads on this community`}>
-                      <ThreadsIcon fill={scheme.gray[7]} />
-                      <CommunityStatValue>{props.community.threads_count}</CommunityStatValue>
-                    </CommunityStat>
-                  </CommunityStats>
-                </CommunityDetails>
-              </Community>
-            </Link>
-          </>
-        );
-      }}
-    </QueryStringConsumer>
-  );
-};
+export default (props) => (
+  <QueryStringConsumer>
+    {(queryString) => {
+      const activeCommunity = queryString.c === props.community.slug;
+      return (
+        <>
+          {activeCommunity && (
+          <Head>
+            <title>
+              RFS |
+              {get(props, 'community.name')}
+            </title>
+          </Head>
+          )}
+          <Link route="dashboard" params={{ c: props.community.slug }}>
+            <Community active={activeCommunity}>
+              <CommunityPicture picture={props.community.picture} />
+              <CommunityDetails>
+                <CommunityName>{get(props, 'community.name')}</CommunityName>
+                <CommunityDescription>{props.community.description}</CommunityDescription>
+                <CommunityStats>
+                  <CommunityStat data-tooltip="Threads on this community">
+                    <ThreadsIcon fill={scheme.gray[7]} />
+                    <CommunityStatValue>{props.community.threads_count}</CommunityStatValue>
+                  </CommunityStat>
+                </CommunityStats>
+              </CommunityDetails>
+            </Community>
+          </Link>
+        </>
+      );
+    }}
+  </QueryStringConsumer>
+);
