@@ -2,6 +2,7 @@
   <dictionary name="wagner">
     <words>
       <w>graphiql</w>
+      <w>refetch</w>
     </words>
   </dictionary>
 </component>

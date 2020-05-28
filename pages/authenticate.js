@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import Head from 'next/head';
 
 import App from '../components/App';
-import Navigation from '../components/navigation/navigation.component';
-import Authentication from '../components/authenticate/authentication.component';
+import Navigation from '../components/blocks/navigation/navigation.component';
+import Authentication from '../components/blocks/authenticate/authentication.component';
 
 const Authenticate = styled.div`
   position: absolute;

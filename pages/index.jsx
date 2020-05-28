@@ -1,12 +1,13 @@
+import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { QueryStringProvider } from '../lib/query.context';
 
 import App from '../components/App';
-import Navigation from '../components/navigation/navigation.component';
-import Communities from '../components/dashboard/communities.component';
-import Threads from '../components/dashboard/threads.component';
-import Thread from '../components/dashboard/thread.component';
+import Navigation from '../components/blocks/navigation/navigation.component';
+import Communities from '../components/blocks/dashboard/communities.component';
+import Threads from '../components/blocks/dashboard/threads.component';
+import Thread from '../components/blocks/dashboard/thread.component';
 
 const Dashboard = styled.div`
   position: absolute;

@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import Head from 'next/head';
 
 import App from '../components/App';
-import Navigation from '../components/navigation/navigation.component';
-import Editor from '../components/write/editor.component';
+import Navigation from '../components/blocks/navigation/navigation.component';
+import Editor from '../components/blocks/write/editor.component';
 
 const Write = styled.div`
   position: absolute;

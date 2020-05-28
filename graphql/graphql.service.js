@@ -1,15 +1,4 @@
-import {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLList,
-  GraphQLBoolean,
-  GraphQLError,
-  GraphQLInt,
-  GraphQLNonNull,
-  GraphQLEnumType,
-} from 'graphql';
-import { equal } from 'assert';
+import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 
 // QUERIES
 import { AuthQuery } from './queries/auth.query';
@@ -27,6 +16,8 @@ import { CreateUser } from './mutations/create-user.mutation';
 import { UpdateUser } from './mutations/update-user.mutation';
 import { UpdatePassword } from './mutations/update-password.mutation';
 import { CreateCommunity } from './mutations/create-community.mutation';
+import { EditCommunity } from './mutations/edit-community.mutation';
+import { DeleteCommunity } from './mutations/delete-community.mutation';
 import { CreateThread } from './mutations/create-thread.mutation';
 import { CreateReply } from './mutations/create-reply.mutation';
 
@@ -67,6 +58,8 @@ const GraphQLService = () => {
       logout: LogoutMutation(),
       createUser: CreateUser(),
       createCommunity: CreateCommunity(),
+      editCommunity: EditCommunity(),
+      deleteCommunity: DeleteCommunity(),
       createThread: CreateThread(),
       createReply: CreateReply(),
       /* Update Mutations */
