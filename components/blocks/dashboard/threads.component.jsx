@@ -61,6 +61,10 @@ export const THREADS_BY_COMMUNITY_QUERY = gql`
       createdAt
       replies_count
       users_replying
+      likes
+      dislikes
+      likedBy
+      deslikedBy
       community {
         id
         slug
@@ -121,10 +125,10 @@ export default class Editor extends Component {
             sortOrder: this.state.sortOrder,
           }}
         >
-          {({ loading, error, data }) => {
+          {({ loading, error, data, refetch }) => {
             if (error || !data) return <div>Error loading posts</div>;
             if (loading) return <ThreadPlaceholder />;
-            return <ThreadList threads={data.threadsByCommunity} />;
+            return <ThreadList threads={data.threadsByCommunity} refetch={refetch} />;
           }}
         </Query>
       </Threads>

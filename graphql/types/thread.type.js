@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLInt, GraphQLError } from 'graphql';
+import { size } from 'lodash';
 import { UserType } from './user.type';
 import { CommunityType } from './community.type';
 import { ReplyType } from './reply.type';
@@ -15,6 +16,10 @@ export const ThreadType = new GraphQLObjectType({
     content: { type: GraphQLString },
     date: { type: GraphQLString, resolve: thread => thread.date.toString() },
     slug: { type: GraphQLString },
+    likedBy: { type: GraphQLList(GraphQLString), resolve: thread => thread.likedBy.map(item => item.toString()) },
+    likes: { type: GraphQLInt, resolve: thread => size(thread.likedBy) },
+    dislikes: { type: GraphQLInt, resolve: thread => size(thread.deslikedBy) },
+    deslikedBy: { type: GraphQLList(GraphQLString), resolve: thread => thread.deslikedBy.map(item => item.toString()) },
     community: {
       type: CommunityType,
       resolve: async (thread, args, { loaders }) => {

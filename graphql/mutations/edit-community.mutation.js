@@ -50,7 +50,6 @@ export const EditCommunity = () => ({
             name,
             description,
             picture,
-            slug: possibleSlug,
           },
         );
         const community = await db.community.findOne({ _id: id });

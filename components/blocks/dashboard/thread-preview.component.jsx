@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { get } from 'lodash';
+import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
 import distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 import markdown from 'markdown-it';
 import emoji from 'markdown-it-emoji';
@@ -13,6 +14,7 @@ import { QueryStringConsumer } from '../../../lib/query.context';
 import RepliesIcon from '../shared/svg/document.icon';
 import UsersIcon from '../shared/svg/users.icon';
 import moment from 'moment';
+import Likes from '../likes';
 
 const Thread = styled.div`
   padding: 20px;
@@ -203,6 +205,7 @@ export default props => {
                       <UsersIcon fill={scheme.gray[7]} />
                       <ThreadStatValue>{props.thread.users_replying}</ThreadStatValue>
                     </ThreadStat>
+                    <Likes thread={props.thread} refetch={props.refetch} />
                   </ThreadStats>
                 </ThreadDetails>
               </Thread>

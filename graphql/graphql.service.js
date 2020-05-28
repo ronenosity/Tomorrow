@@ -19,6 +19,9 @@ import { CreateCommunity } from './mutations/create-community.mutation';
 import { EditCommunity } from './mutations/edit-community.mutation';
 import { DeleteCommunity } from './mutations/delete-community.mutation';
 import { CreateThread } from './mutations/create-thread.mutation';
+import { LikeThread } from './mutations/like-thread.mutation';
+import { RemoveVoteThread } from './mutations/remove-vote-thread.mutation';
+import { DeslikeThread } from './mutations/deslike-thread.mutation';
 import { CreateReply } from './mutations/create-reply.mutation';
 
 /**
@@ -61,6 +64,9 @@ const GraphQLService = () => {
       editCommunity: EditCommunity(),
       deleteCommunity: DeleteCommunity(),
       createThread: CreateThread(),
+      likeThread: LikeThread(),
+      deslikeThread: DeslikeThread(),
+      removeVoteThread: RemoveVoteThread(),
       createReply: CreateReply(),
       /* Update Mutations */
       updateUser: UpdateUser(),

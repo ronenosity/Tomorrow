@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
 import bcrypt from 'bcryptjs';
+
+const mongoose = require('mongoose');
+
 const SALT_WORK_FACTOR = 10;
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 const UserSchema = new Schema({
   email: { type: String, required: true, index: true, unique: true },
   password: { type: String },
@@ -17,13 +19,13 @@ const UserSchema = new Schema({
   accountDisabled: { type: Boolean, default: false },
 });
 UserSchema.set('autoIndex', false);
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   const user = this;
   user.updatedAt = Date.now();
   if (!user.isModified('password')) return next();
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(error, salt) {
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (error, salt) {
     if (error) return next(error);
-    bcrypt.hash(user.password, salt, function(err, hash) {
+    bcrypt.hash(user.password, salt, function (err, hash) {
       if (err) return next(err);
       user.password = hash;
       return next();
@@ -32,9 +34,9 @@ UserSchema.pre('save', function(next) {
 });
 
 // # User schema method definitions
-UserSchema.methods.comparePassword = function(thePassword) {
+UserSchema.methods.comparePassword = function (thePassword) {
   return new Promise((resolve, reject) => {
-    return bcrypt.compare(thePassword, this.password, function(error, match) {
+    return bcrypt.compare(thePassword, this.password, function (error, match) {
       if (error) return reject(error);
       return resolve(match);
     });

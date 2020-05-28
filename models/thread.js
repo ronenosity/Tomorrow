@@ -10,9 +10,11 @@ const ThreadSchema = new Schema({
   slug: { type: String, required: true, index: true, unique: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  likedBy: { type: Schema.Types.Array, default: [] },
+  deslikedBy: { type: Schema.Types.Array, default: [] },
 });
 ThreadSchema.set('autoIndex', false);
-ThreadSchema.pre('save', function(next) {
+ThreadSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   return next();
 });
