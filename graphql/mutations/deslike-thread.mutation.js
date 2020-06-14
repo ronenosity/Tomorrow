@@ -15,6 +15,8 @@ export const DeslikeThread = () => ({
         return MISSING_PARAMETERS;
       }
       let thread;
+      let stars;
+      const user = await db.user.findById(authData.identifier);
       try {
         thread = await db.thread.findOneAndUpdate(
           {
@@ -25,6 +27,10 @@ export const DeslikeThread = () => ({
             $pull: { likedBy: userId.toString() },
           },
         );
+        stars = await user.update({
+          stars: user.stars + 1
+        });
+
       } catch (error) {
         return GraphQLError(
           Response({

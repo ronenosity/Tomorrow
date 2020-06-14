@@ -12,6 +12,7 @@ const AUTH_QUERY = gql`
       avatar
       role
       accountDisabled
+      stars
     }
   }
 `;
