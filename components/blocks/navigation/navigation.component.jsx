@@ -5,10 +5,14 @@ import { Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 import { useCookies } from 'react-cookie';
 
-import Auth from '../shared/auth/auth.component';
 
-import { scheme } from '../../../lib/theme';
+import {Box} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 import { useAuthContext } from '../../contexts/auth';
+import { scheme } from '../../../lib/theme';
+import Auth from '../shared/auth/auth.component';
+import Badge from '../badge';
 
 const Navigation = styled.nav`
   grid-area: navigation;
@@ -139,6 +143,13 @@ const NavItem = styled.a`
     return '';
   }};
 `;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  min-width: 80px;
+`;
+
 const LOGOUT_MUTATION = gql`
   mutation LOGOUT_MUTATION {
     logout
@@ -219,21 +230,42 @@ export default () => {
               <Mutation mutation={LOGOUT_MUTATION}>
                 {(signout, { error, loading, data }) => (
                   <>
+                    <Container>
+                      <Box display="flex" alignItems="center">
+                        <Avatar src={auth.avatar} />
+                      </Box>
+                      <Box display="flex" alignItems="center">
+                        <Box>
+                          <Typography color="secondary">@{auth.username}</Typography>
+                          <Box display="flex" justifyContent="space-around">
+                            <Typography
+                              color="secondary"
+                              variant="subtitle2"
+                              style={{alignSelf: 'flex-end'}}
+                            >{auth.stars}
+                            </Typography>
+                            <Box display="flex">
+                              <Badge stars={auth.stars} />
+                            </Box>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Container>
                     {isAdmin && !authContextLoading && (
-                      <NavElement>
-                        <Link href="/admin">
-                          <NavItem>
-                            Admin
-                            <span>Manage Communities</span>
-                          </NavItem>
-                        </Link>
-                      </NavElement>
-                    )}
+                    <NavElement>
+                      <Link href="/admin">
+                        <NavItem>
+                          Admin
+                          <span>Manage Communities</span>
+                        </NavItem>
+                      </Link>
+                    </NavElement>
+                          )}
                     <NavElement onClick={() => handleSignout(signout)}>
                       <NavItem>Sign out</NavItem>
                     </NavElement>
                   </>
-                )}
+                    )}
               </Mutation>
             )}
           </NavAuth>

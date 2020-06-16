@@ -15,6 +15,8 @@ export const RemoveVoteThread = () => ({
         return MISSING_PARAMETERS;
       }
       let thread;
+      let stars;
+      const user = await db.user.findById(userId);
       try {
         thread = await db.thread.findOneAndUpdate(
           {
@@ -24,6 +26,9 @@ export const RemoveVoteThread = () => ({
             $pull: { likedBy: userId.toString(), deslikedBy: userId.toString() },
           },
         );
+        stars = await user.update({
+          stars: user.stars - 1
+        });
       } catch (error) {
         return GraphQLError(
           Response({

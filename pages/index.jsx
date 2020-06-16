@@ -5,9 +5,9 @@ import { QueryStringProvider } from '../lib/query.context';
 
 import App from '../components/App';
 import Navigation from '../components/blocks/navigation/navigation.component';
-import Communities from '../components/blocks/dashboard/communities.component';
-import Threads from '../components/blocks/dashboard/threads.component';
-import Thread from '../components/blocks/dashboard/thread.component';
+import Communities from '../components/blocks/dashboard/Communities';
+import Threads from '../components/blocks/dashboard/Threads';
+import Thread from '../components/blocks/dashboard/Thread';
 
 const Dashboard = styled.div`
   position: absolute;

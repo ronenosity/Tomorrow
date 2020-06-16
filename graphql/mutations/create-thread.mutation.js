@@ -38,15 +38,21 @@ export const CreateThread = () => ({
 
       let thread;
       let community;
+      let stars;
+      let user;
       try {
+        user = await db.user.findById(authData.identifier);
         community = await db.community.findOne({ slug }).lean();
         thread = await db.thread.create({
           community: community._id.toString(),
           author: authData.identifier,
-          title: title,
-          content: content,
-          date: date,
+          title,
+          content,
+          date,
           slug: possibleSlug,
+        });
+        stars = await user.update({
+          stars: user.stars + 5
         });
       } catch (error) {
         return GraphQLError(

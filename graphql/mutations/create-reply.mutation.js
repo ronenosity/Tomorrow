@@ -16,11 +16,17 @@ export const CreateReply = () => ({
         return MISSING_PARAMETERS;
       }
       let reply;
+      let user;
+      let stars;
       try {
+        user = await db.user.findById(authData.identifier);
         reply = await db.reply.create({
-          thread: thread,
+          thread,
           author: authData.identifier,
-          content: content,
+          content,
+        });
+        stars = await user.update({
+          stars: user.stars + 3
         });
       } catch (error) {
         return GraphQLError(

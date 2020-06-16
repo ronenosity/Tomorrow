@@ -17,6 +17,7 @@ const UserSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
   token: { type: String },
   accountDisabled: { type: Boolean, default: false },
+  stars: { type: Number, default: 0 }
 });
 UserSchema.set('autoIndex', false);
 UserSchema.pre('save', function (next) {
