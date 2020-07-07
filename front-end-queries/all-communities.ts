@@ -6,6 +6,7 @@ const ALL_COMMUNITIES_QUERY = gql`
       id
       name
       description
+      category
       slug
       picture
       likes

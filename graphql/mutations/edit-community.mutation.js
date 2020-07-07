@@ -9,9 +9,10 @@ export const EditCommunity = () => ({
     name: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLNonNull(GraphQLString) },
     picture: { type: GraphQLNonNull(GraphQLString) },
+    category: { type: GraphQLNonNull(GraphQLString) },
     id: { type: GraphQLNonNull(GraphQLString) },
   },
-  resolve: (root, { name, description, picture, id }, ctx) => {
+  resolve: (root, { name, description, picture, id, category }, ctx) => {
     const { headers, loaders, security, db } = ctx;
     return security.ensureAuthenticated(ctx.request.cookies.token).then(async authData => {
       if (
@@ -50,6 +51,7 @@ export const EditCommunity = () => ({
             name,
             description,
             picture,
+            category,
           },
         );
         const community = await db.community.findOne({ _id: id });

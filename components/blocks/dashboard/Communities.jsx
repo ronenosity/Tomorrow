@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
+import {sortBy} from "lodash";
 import { scheme } from '../../../lib/theme';
 
 import Community from './Community';
@@ -19,6 +20,7 @@ export const ALL_COMMUNITIES_QUERY = gql`
       id
       name
       description
+      category
       slug
       picture
       likes
@@ -32,9 +34,10 @@ const Communities = () => {
     <Container>
       <Query query={ALL_COMMUNITIES_QUERY}>
         {({ loading, error, data: { communities } }) => {
+          const sortedCommunities = sortBy(communities, 'category');
           if (error) return <div>Error loading posts</div>;
           if (loading) return <div>loading...</div>;
-          return communities.map(community => <Community key={community.id} community={community} />);
+          return sortedCommunities.map(community => <Community key={community.id} community={community} />);
         }}
       </Query>
     </Container>

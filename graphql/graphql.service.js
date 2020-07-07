@@ -9,10 +9,12 @@ import { CommunitiesQuery } from './queries/communities.query';
 import { ThreadsByCommunityQuery } from './queries/threads-by-community.query';
 import { ThreadQuery } from './queries/thread.query';
 import { RepliesByThreadQuery } from './queries/replies-by-thread.query';
+import { CategoriesQuery } from "./queries/categories.query";
 // MUTATIONS
 import { AuthenticateMutation } from './mutations/authenticate.mutation';
 import { LogoutMutation } from './mutations/logout.mutation';
 import { CreateUser } from './mutations/create-user.mutation';
+import { CreateCategory } from './mutations/create-category.mutation';
 import { UpdateUser } from './mutations/update-user.mutation';
 import { UpdatePassword } from './mutations/update-password.mutation';
 import { CreateCommunity } from './mutations/create-community.mutation';
@@ -45,6 +47,7 @@ const GraphQLService = () => {
       threadsByCommunity: ThreadsByCommunityQuery(),
       thread: ThreadQuery(),
       repliesByThread: RepliesByThreadQuery(),
+      categories: CategoriesQuery(),
     }),
   });
 
@@ -68,6 +71,7 @@ const GraphQLService = () => {
       deslikeThread: DeslikeThread(),
       removeVoteThread: RemoveVoteThread(),
       createReply: CreateReply(),
+      createCategory: CreateCategory(),
       /* Update Mutations */
       updateUser: UpdateUser(),
       updatePassword: UpdatePassword(),

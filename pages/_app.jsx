@@ -8,6 +8,7 @@ import withApolloClient from '../lib/with-apollo-client';
 import theme from '../theme';
 import AuthProvider from '../components/contexts/auth';
 import CommunitiesProvider from '../components/contexts/communities';
+import CategoriesProvider from "../components/contexts/categories";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -29,9 +30,11 @@ class MyApp extends App {
             <ApolloProvider client={apolloClient}>
               <CookiesProvider>
                 <AuthProvider>
-                  <CommunitiesProvider>
-                    <Component {...pageProps} />
-                  </CommunitiesProvider>
+                  <CategoriesProvider>
+                    <CommunitiesProvider>
+                      <Component {...pageProps} />
+                    </CommunitiesProvider>
+                  </CategoriesProvider>
                 </AuthProvider>
               </CookiesProvider>
             </ApolloProvider>
