@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ThreadSchema = new Schema({
   community: { type: Schema.Types.ObjectId, required: true },
   title: { type: String, required: true },
-  date: { type: Date, required: true },
+  date: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, required: true },
   content: { type: String, required: true },
   slug: { type: String, required: true, index: true, unique: true },

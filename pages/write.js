@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import App from '../components/App';
 import Navigation from '../components/blocks/navigation/navigation.component';
-import Editor from '../components/blocks/write/editor.component';
+import Editor from '../components/blocks/write/Editor';
 
 const Write = styled.div`
   position: absolute;
