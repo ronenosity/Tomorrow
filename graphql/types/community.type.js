@@ -10,6 +10,7 @@ export const CommunityType = new GraphQLObjectType({
     id: { type: GraphQLString, resolve: community => community._id.toString() },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
+    category: { type: GraphQLString },
     slug: { type: GraphQLString },
     picture: { type: GraphQLString },
     createdAt: { type: GraphQLString, resolve: community => community.createdAt.toString() },

@@ -47,12 +47,13 @@ const handler = graphqlHTTP(async (request, response) => {
   });
   const db = {
     user: require('../../../models/user'),
+    category: require('../../../models/category'),
     community: require('../../../models/community'),
     thread: require('../../../models/thread'),
     reply: require('../../../models/reply'),
     community_likes: require('../../../models/community-likes'),
   };
-  const { UserLoader, CommunityLoader, ThreadLoader, ReplyLoader } = Loaders({ db });
+  const { UserLoader, CommunityLoader, ThreadLoader, ReplyLoader, CategoryLoader } = Loaders({ db });
   // Auth Service
   const auth = authService();
   const security = Security(db, auth);
@@ -68,6 +69,7 @@ const handler = graphqlHTTP(async (request, response) => {
         community: CommunityLoader(),
         thread: ThreadLoader(),
         reply: ReplyLoader(),
+        category: CategoryLoader(),
       },
     },
     schema: GraphQLService(),

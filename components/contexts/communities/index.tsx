@@ -14,9 +14,11 @@ interface CreateCommunityParams {
     name?: string;
     description?: string;
     picture?: string;
+    category?: string;
     id?: string;
   };
 }
+
 interface ContextValue {
   communities: Record<any, any>;
   loading: boolean;

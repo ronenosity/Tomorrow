@@ -148,6 +148,8 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   min-width: 80px;
+  align-self: center;
+  
 `;
 
 const LOGOUT_MUTATION = gql`
@@ -212,7 +214,7 @@ export default () => {
               <Link href="/">
                 <NavItem>
                   Explore
-                  <span>Discover communities</span>
+                  <span>Discover Timelines</span>
                 </NavItem>
               </Link>
             </NavElement>
@@ -237,7 +239,7 @@ export default () => {
                       <Box display="flex" alignItems="center">
                         <Box>
                           <Typography color="secondary">@{auth.username}</Typography>
-                          <Box display="flex" justifyContent="space-around">
+                          <Box display="flex" justifyContent="space-around" style={{ maxWidth: '30px' }}>
                             <Typography
                               color="secondary"
                               variant="subtitle2"

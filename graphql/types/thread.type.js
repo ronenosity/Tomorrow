@@ -14,7 +14,7 @@ export const ThreadType = new GraphQLObjectType({
     id: { type: GraphQLString, resolve: thread => thread._id.toString() },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
-    date: { type: GraphQLString, resolve: thread => thread.date.toString() },
+    date: { type: GraphQLString },
     slug: { type: GraphQLString },
     likedBy: { type: GraphQLList(GraphQLString), resolve: thread => thread.likedBy.map(item => item.toString()) },
     likes: { type: GraphQLInt, resolve: thread => size(thread.likedBy) },

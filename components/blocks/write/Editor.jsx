@@ -9,7 +9,7 @@ import moment from 'moment';
 import { QueryStringConsumer } from '../../../lib/query.context';
 import { scheme } from '../../../lib/theme';
 
-import Writter from './writter.component';
+import Writer from './Writer';
 import Preview from './preview.component';
 
 import PenIcon from '../shared/svg/pen.icon';
@@ -91,13 +91,12 @@ const CREATE_THREAD_MUTATION = gql`
   }
 `;
 
-export default class Editor extends Component {
-  state = { title: '', content: '', date: moment().format() };
-  setTitle = title => this.setState({ title });
-  setDate = date => this.setState({ date });
-  setContent = content => this.setState({ content });
+const Editor = (props) => {
+  const [title, setTitle] = React.useState('');
+  const [content, setContent] = React.useState('');
+  const [date, setDate] = React.useState('123');
 
-  handleCreateThread = async createThread => {
+  const handleCreateThread = async createThread => {
     const {
       data: { createThread: newThread },
     } = await createThread();
@@ -116,13 +115,10 @@ export default class Editor extends Component {
     //   },
     // });
   };
-
-  render() {
-    const { title, content, date } = this.state;
     return (
       <Wrapper>
         <Header>
-          <Query query={COMMUNITY_NAME_QUERY} variables={{ community: this.props.community }}>
+          <Query query={COMMUNITY_NAME_QUERY} variables={{ community: props.community }}>
             {({ loading, error, data: { community } }) => {
               if (error) return 'Error loading community name';
               if (loading) return 'Loading...';
@@ -135,20 +131,20 @@ export default class Editor extends Component {
           </Query>
           <Mutation
             mutation={CREATE_THREAD_MUTATION}
-            variables={{ community: this.props.community, title, content, date }}
+            variables={{ community: props.community, title, content, date }}
           >
             {(createThread, { loading, error }) => {
               if (error) return <div>An error ocurred while creating the thread</div>;
               if (loading) {
                 return (
-                  <Publish onClick={() => this.handleCreateThread(createThread)} disabled>
+                  <Publish onClick={() => handleCreateThread(createThread)} disabled>
                     <span>Creating thread</span>
                     <PenIcon fill={scheme.white} />
                   </Publish>
                 );
               }
               return (
-                <Publish onClick={() => this.handleCreateThread(createThread)}>
+                <Publish onClick={() => handleCreateThread(createThread)}>
                   <span>Publish thread</span>
                   <PenIcon fill={scheme.white} />
                 </Publish>
@@ -156,16 +152,17 @@ export default class Editor extends Component {
             }}
           </Mutation>
         </Header>
-        <Writter
+        <Writer
           title={title}
           content={content}
           date={date}
-          onChangeTitle={this.setTitle}
-          onChangeContent={this.setContent}
-          onChangeDate={this.setDate}
+          onChangeTitle={setTitle}
+          onChangeContent={setContent}
+          onChangeDate={setDate}
         />
         <Preview title={title} content={content} date={date} />
       </Wrapper>
     );
-  }
-}
+};
+
+export default Editor;

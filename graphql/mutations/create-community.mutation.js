@@ -9,8 +9,9 @@ export const CreateCommunity = () => ({
     name: { type: GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLNonNull(GraphQLString) },
     picture: { type: GraphQLNonNull(GraphQLString) },
+    category: { type: GraphQLNonNull(GraphQLString) },
   },
-  resolve: (root, { name, description, picture }, ctx) => {
+  resolve: (root, { name, description, picture, category }, ctx) => {
     const { headers, loaders, security, db } = ctx;
     return security.ensureAuthenticated(ctx.request.cookies.token).then(async authData => {
       if (!name || name === '' || !description || description === '' || !picture || picture === '') {
@@ -49,6 +50,7 @@ export const CreateCommunity = () => ({
           name: name,
           description: description,
           picture: picture,
+          category: category,
           slug: possibleSlug,
         });
       } catch (error) {

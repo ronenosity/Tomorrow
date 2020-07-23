@@ -41,6 +41,9 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
             <Typography variant="body2" color="textSecondary" component="p">
               {community.description}
             </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {community.category}
+            </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
