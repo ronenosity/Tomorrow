@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
-import {sortBy, map, find, pickBy} from "lodash";
+import { map, pickBy } from "lodash";
+import Typography from "@material-ui/core/Typography";
 import { scheme } from '../../../lib/theme';
 
 import Community from './Community';
-import Typography from "@material-ui/core/Typography";
 
 const Container = styled.div`
   grid-area: communities;
@@ -30,7 +30,7 @@ export const ALL_COMMUNITIES_QUERY = gql`
     categories {
       id
       name
-    }  
+    }
   }
 `;
 

@@ -1,4 +1,4 @@
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as NewApolloProvider } from '@apollo/react-hooks';
@@ -25,7 +25,7 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, apolloClient } = this.props;
     return (
-      <Container>
+      <>
         <ThemeProvider theme={theme}>
           <NewApolloProvider client={apolloClient}>
             <ApolloProvider client={apolloClient}>
@@ -41,7 +41,7 @@ class MyApp extends App {
             </ApolloProvider>
           </NewApolloProvider>
         </ThemeProvider>
-      </Container>
+      </>
     );
   }
 }

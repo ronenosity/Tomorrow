@@ -5,7 +5,7 @@ import { QueryStringProvider } from '../lib/query.context';
 
 import App from '../components/App';
 import Navigation from '../components/blocks/navigation/navigation.component';
-import Communities from '../components/blocks/dashboard/Communities';
+import Communities from '../components/blocks/dashboard/Communities'
 import Threads from '../components/blocks/dashboard/Threads';
 import Thread from '../components/blocks/dashboard/Thread';
 

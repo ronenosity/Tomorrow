@@ -4,6 +4,7 @@ import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typo
 import FormDialog from '../new-edit-community/dialog';
 import useIsOpen from '../../../hooks/useIsOpen';
 import { useCommunitiesContext } from '../../contexts/communities';
+import {useAuthContext} from "../../contexts/auth";
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +19,7 @@ interface Props {
 }
 const CommunityCard: React.FC<Props> = ({ community }: Props) => {
   const classes = useStyles();
+  const { isAdmin } = useAuthContext();
   const { deleteCommunity, loading, refetch } = useCommunitiesContext();
   const { isOpen, close, toggle } = useIsOpen();
 
@@ -46,16 +48,20 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary" onClick={toggle}>
-            Edit
-          </Button>
-          <Button size="small" color="primary" onClick={onClickDelete}>
-            Delete
-          </Button>
-        </CardActions>
+        {isAdmin && (
+          <CardActions>
+            <Button size="small" color="primary" onClick={toggle}>
+              Edit
+            </Button>
+            <Button size="small" color="primary" onClick={onClickDelete}>
+              Delete
+            </Button>
+          </CardActions>
+        )}
       </Card>
-      <FormDialog isOpen={isOpen} close={close} toggle={toggle} community={community} />
+      {isAdmin && (
+        <FormDialog isOpen={isOpen} close={close} toggle={toggle} community={community} />
+      )}
     </>
   );
 };
