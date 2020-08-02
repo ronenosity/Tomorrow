@@ -15,10 +15,13 @@ import {
 
 import SIGNIN_MUTATION from '../mutations/SIGNIN_MUTATION';
 
-const Login: React.FC = ({ cookies }) => {
-  console.log('cookies', cookies);
+interface LoginProps {
+  cookies: any;
+}
+
+const Login: React.FC<LoginProps> = ({ cookies }) => {
   const [token, setToken] = useState('');
-  const [password, setPassword] = useState(''); 
+  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState(null);
 

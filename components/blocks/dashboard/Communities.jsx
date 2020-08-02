@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import { scheme } from '../../../lib/theme';
 
 import Community from './Community';
-import Typography from "@material-ui/core/Typography";
 
 const Container = styled.div`
   grid-area: communities;

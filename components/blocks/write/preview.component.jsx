@@ -57,7 +57,7 @@ const md = new markdown().use(emoji);
 export default props => {
   return (
     <Preview>
-      <Text dangerouslySetInnerHTML={{ __html: md.render(props.date) }} />
+      <Text dangerouslySetInnerHTML={{ __html: md.render(moment(props.date).format('MM/DD/YYYY')) }} />
       <Title dangerouslySetInnerHTML={{ __html: md.render(props.title) }} />
       <WritePaper dangerouslySetInnerHTML={{ __html: md.render(props.content) }} />
     </Preview>

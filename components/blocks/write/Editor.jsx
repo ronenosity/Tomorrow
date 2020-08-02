@@ -94,7 +94,7 @@ const CREATE_THREAD_MUTATION = gql`
 const Editor = (props) => {
   const [title, setTitle] = React.useState('');
   const [content, setContent] = React.useState('');
-  const [date, setDate] = React.useState('123');
+  const [date, setDate] = React.useState(Date.now());
 
   const handleCreateThread = async createThread => {
     const {
