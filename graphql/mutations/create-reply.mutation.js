@@ -11,7 +11,6 @@ export const CreateReply = () => ({
   resolve: (root, { thread, content }, ctx) => {
     const { headers, loaders, security, db } = ctx;
     return security.ensureAuthenticated(ctx.request.cookies.token).then(async authData => {
-      console.log({ thread, content });
       if (!thread || thread === '' || !content || content === '') {
         return MISSING_PARAMETERS;
       }

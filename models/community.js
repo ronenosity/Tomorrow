@@ -7,6 +7,7 @@ const CommunitySchema = new Schema({
   description: { type: String },
   slug: { type: String, required: true, index: true, unique: true },
   picture: { type: String },
+  category: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

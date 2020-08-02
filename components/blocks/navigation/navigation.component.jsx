@@ -24,6 +24,7 @@ const Navigation = styled.nav`
   padding: 0 40px;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.08);
   z-index: 20;
+  height: 60px;
 `;
 
 const RotateAnimation = keyframes`
@@ -148,6 +149,8 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   min-width: 80px;
+  align-self: center;
+
 `;
 
 const LOGOUT_MUTATION = gql`
@@ -209,10 +212,10 @@ export default () => {
               </NavElement>
             )}
             <NavElement>
-              <Link href="/">
+              <Link href="/communities">
                 <NavItem>
                   Explore
-                  <span>Discover communities</span>
+                  <span>Discover Timelines</span>
                 </NavItem>
               </Link>
             </NavElement>
@@ -237,7 +240,7 @@ export default () => {
                       <Box display="flex" alignItems="center">
                         <Box>
                           <Typography color="secondary">@{auth.username}</Typography>
-                          <Box display="flex" justifyContent="space-around">
+                          <Box display="flex" justifyContent="space-around" style={{ maxWidth: '30px' }}>
                             <Typography
                               color="secondary"
                               variant="subtitle2"

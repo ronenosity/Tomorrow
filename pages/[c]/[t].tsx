@@ -21,20 +21,31 @@ const Dashboard = styled.div`
   grid-template-columns: 350px 450px auto;
 `;
 
-export default props => (
-  <>
-    <Head>
-      <title>RFS | Dashboard</title>
-    </Head>
-    <QueryStringProvider queryString={props.query}>
-      <App>
-        <Dashboard>
-          <Navigation />
-          <Communities />
-          {props.query.c && <Threads community={props.query.c} />}
-          {props.query.t && <Thread community={props.query.c} thread={props.query.t} />}
-        </Dashboard>
-      </App>
-    </QueryStringProvider>
-  </>
-);
+interface QueryProps {
+  query: {
+      c: string;
+      t: string;
+  };
+}
+
+const ThreadWrapper: React.FC<QueryProps> = ({ query }) => {
+    return (
+      <>
+        <Head>
+          <title>RFS | Dashboard</title>
+        </Head>
+        <QueryStringProvider queryString={query}>
+          <App>
+            <Dashboard>
+              <Navigation />
+              <Communities />
+              {query.c && <Threads community={query.c} />}
+              {query.t && <Thread community={query.c} thread={query.t} />}
+            </Dashboard>
+          </App>
+        </QueryStringProvider>
+      </>
+    );
+};
+
+export default ThreadWrapper;

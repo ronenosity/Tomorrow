@@ -131,10 +131,44 @@ export const Loaders = ({ db }) => {
     return { load, cache };
   };
 
+  const CategoryLoader = () => {
+    let memoizedCategory = {};
+    /**
+     * This method loads and caches the category by the given id
+     * @param {string} category identifier
+     */
+    const load = async id => {
+      if (memoizedCategory[id]) return memoizedCategory[id];
+      try {
+        memoizedCategory[id] = await db.category.findById(id).lean();
+      } catch (error) {
+        console.log('Error Loading Category: ', id);
+      }
+      return memoizedCategory[id];
+    };
+    /**
+     * This method caches the given category array
+     * @param {Array} category Array
+     * @returns {object} category
+     */
+    const cache = categories => {
+      return new Promise(resolve => {
+        categories.forEach(category => {
+          if (!memoizedCategory[category._id]) {
+            memoizedCategory[category._id] = category;
+          }
+        });
+        resolve();
+      });
+    };
+    return { load, cache };
+  };
+
   return {
     UserLoader,
     CommunityLoader,
     ThreadLoader,
     ReplyLoader,
+    CategoryLoader,
   };
 };

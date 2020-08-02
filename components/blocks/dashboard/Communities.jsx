@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
+import { map, pickBy } from "lodash";
+import Typography from "@material-ui/core/Typography";
 import { scheme } from '../../../lib/theme';
 
 import Community from './Community';
@@ -19,10 +21,15 @@ export const ALL_COMMUNITIES_QUERY = gql`
       id
       name
       description
+      category
       slug
       picture
       likes
       threads_count
+    }
+    categories {
+      id
+      name
     }
   }
 `;
@@ -31,10 +38,20 @@ const Communities = () => {
   return (
     <Container>
       <Query query={ALL_COMMUNITIES_QUERY}>
-        {({ loading, error, data: { communities } }) => {
+        {({ loading, error, data: { communities, categories } }) => {
           if (error) return <div>Error loading posts</div>;
           if (loading) return <div>loading...</div>;
-          return communities.map(community => <Community key={community.id} community={community} />);
+          return (
+            map(categories, category => {
+              const community = pickBy(communities, {'category': category.name});
+                return (
+                  <div style={{ padding: 5 }}>
+                    <Typography variant="h4">{category.name}</Typography>
+                    {map(community, c => (<Community key={c.id} community={c} />))}
+                  </div>
+                );
+            })
+          );
         }}
       </Query>
     </Container>

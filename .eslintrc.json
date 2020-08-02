@@ -23,6 +23,9 @@
     },
     "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
     "rules": {
+        "consistent-return": "off",
+        "react/prop-types": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "react/jsx-props-no-spreading": "off",

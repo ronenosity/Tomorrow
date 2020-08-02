@@ -10,9 +10,10 @@ function parseCookies(req, options = {}) {
   return cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 }
 
-export default App => {
+const withApolloClient = App => {
   return class WithData extends React.Component {
     static displayName = `WithData(${App.displayName})`;
+
     static propTypes = {
       apolloState: PropTypes.object.isRequired,
     };
@@ -86,3 +87,5 @@ export default App => {
     }
   };
 };
+
+export default withApolloClient;
