@@ -150,7 +150,6 @@ const Container = styled.div`
   justify-content: space-between;
   min-width: 80px;
   align-self: center;
-
 `;
 
 const LOGOUT_MUTATION = gql`
