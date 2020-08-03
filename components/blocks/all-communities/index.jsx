@@ -1,27 +1,43 @@
 import React from 'react';
-import { map } from "lodash";
-import { Grid } from "@material-ui/core";
+import {map, pickBy} from "lodash";
 import styled from 'styled-components';
+import { Link } from '../../../routes';
 import CommunityCard from "../community-card";
 import { useCommunitiesContext } from "../../contexts/communities";
+import {useCategoriesContext} from "../../contexts/categories";
 
 const Container = styled.div`
-  padding: 15px 80px;
+  padding: 15px 50px;
+`;
+
+const Box = styled.div`
   display: flex;
-  align-content: flex-start;
+  justify-content: flex-start;
 `;
 
 const AllCommunities = () => {
   const { communities } = useCommunitiesContext();
+  const { categories } = useCategoriesContext();
+
   return (
     <Container>
-      <Grid container spacing={5}>
-        {map(communities, community => (
-          <Grid item key={community.id}>
-            <CommunityCard community={community} />
-          </Grid>
-        ))}
-      </Grid>
+      {map(categories, category => {
+        const community = pickBy(communities, {'category': category.name});
+        return (
+          <div>
+            <h1>{category.name}</h1>
+            <Box>
+              {map(community, c => (
+                <Link Link route="dashboard" params={{ c: c.slug }}>
+                  <div style={{padding: 5}}>
+                    <CommunityCard community={c} />
+                  </div>
+                </Link>
+                ))}
+            </Box>
+          </div>
+        );
+      })}
     </Container>
   );
 };
