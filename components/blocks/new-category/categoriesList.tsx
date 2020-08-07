@@ -33,7 +33,7 @@ const HandleEdit: React.FC<Category> = ({ category }) => {
 
   return (
     <Box
-      p={1}
+      height={60}
       display="flex"
       justifyContent="space-between"
       alignItems="center"
@@ -48,9 +48,9 @@ const HandleEdit: React.FC<Category> = ({ category }) => {
             disabled={loading}
           />
         ): (
-          <h1>
+          <h2>
             {category.name}
-          </h1>
+          </h2>
         )}
       </Box>
       <Box>
