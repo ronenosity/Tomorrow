@@ -1,5 +1,5 @@
 import React from 'react';
-import {map, pickBy} from "lodash";
+import {map, pickBy, isEmpty} from "lodash";
 import styled from 'styled-components';
 import { Link } from '../../../routes';
 import CommunityCard from "../community-card";
@@ -23,6 +23,7 @@ const AllCommunities = () => {
     <Container>
       {map(categories, category => {
         const community = pickBy(communities, {'category': category.name});
+        if (isEmpty(community)) return;
         return (
           <div>
             <h1>{category.name}</h1>

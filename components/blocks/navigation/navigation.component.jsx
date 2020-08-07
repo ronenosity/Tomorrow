@@ -186,9 +186,9 @@ export default () => {
               </AppLogo>
               <AppInfo>
                 <AppTitle>
-                  <span>Reactive</span> Community
+                  <span>Tomorrow in Time</span>
                 </AppTitle>
-                <AppSubtitle>Where communities happen</AppSubtitle>
+                <AppSubtitle>A Community of History Makers</AppSubtitle>
               </AppInfo>
             </NavMeta>
           </Link>

@@ -15,6 +15,7 @@ import { AuthenticateMutation } from './mutations/authenticate.mutation';
 import { LogoutMutation } from './mutations/logout.mutation';
 import { CreateUser } from './mutations/create-user.mutation';
 import { CreateCategory } from './mutations/create-category.mutation';
+import { EditCategory } from './mutations/edit-category.mutation';
 import { UpdateUser } from './mutations/update-user.mutation';
 import { UpdatePassword } from './mutations/update-password.mutation';
 import { CreateCommunity } from './mutations/create-community.mutation';
@@ -25,6 +26,7 @@ import { LikeThread } from './mutations/like-thread.mutation';
 import { RemoveVoteThread } from './mutations/remove-vote-thread.mutation';
 import { DeslikeThread } from './mutations/deslike-thread.mutation';
 import { CreateReply } from './mutations/create-reply.mutation';
+import {DeleteCategory} from "./mutations/delete-category.mutation";
 
 /**
  * GraphQL Service
@@ -74,8 +76,10 @@ const GraphQLService = () => {
       createCategory: CreateCategory(),
       /* Update Mutations */
       updateUser: UpdateUser(),
+      updateCategory: EditCategory(),
       updatePassword: UpdatePassword(),
       /* Delete Mutations */
+      deleteCategory: DeleteCategory(),
     }),
   });
 

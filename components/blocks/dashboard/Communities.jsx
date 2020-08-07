@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Query } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
-import { map, pickBy } from "lodash";
+import {isEmpty, map, pickBy} from "lodash";
 import Typography from "@material-ui/core/Typography";
 import { scheme } from '../../../lib/theme';
 
@@ -44,6 +44,7 @@ const Communities = () => {
           return (
             map(categories, category => {
               const community = pickBy(communities, {'category': category.name});
+              if (isEmpty(community)) return;
                 return (
                   <div style={{ padding: 5 }}>
                     <Typography variant="h4">{category.name}</Typography>

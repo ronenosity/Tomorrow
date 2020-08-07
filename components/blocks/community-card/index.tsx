@@ -29,7 +29,7 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
 
   useEffect(() => {
     refetch();
-  }, [loading, refetch]);
+  }, [loading, refetch, community]);
 
   return (
     <>
