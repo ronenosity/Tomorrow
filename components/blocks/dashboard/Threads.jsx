@@ -87,8 +87,8 @@ const COMMUNITY_NAME_QUERY = gql`
 `;
 
 const Threads = ({ community }) => {
-  const [sort, setSort] = React.useState('date');
-  const [sortOrder, setSortOrder] = React.useState('asc');
+  const [sort, setSort] = React.useState('updatedAt');
+  const [sortOrder, setSortOrder] = React.useState('desc');
 
   const byEvent = () => {
     setSort('date');

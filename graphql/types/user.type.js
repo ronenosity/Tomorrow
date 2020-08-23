@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLEnumType, GraphQLInt, GraphQLList } from 'graphql';
+import {GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLEnumType, GraphQLInt} from 'graphql';
 
 export const RoleType = new GraphQLEnumType({
   name: 'role',
@@ -25,6 +25,6 @@ export const UserType = new GraphQLObjectType({
     updatedAt: { type: GraphQLString, resolve: user => user.updatedAt.toString() },
     token: { type: GraphQLString },
     accountDisabled: { type: GraphQLBoolean },
-    stars: { type: GraphQLInt },
+    stars: { type: GraphQLInt }
   }),
 });

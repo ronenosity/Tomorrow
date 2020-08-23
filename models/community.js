@@ -10,7 +10,6 @@ const CommunitySchema = new Schema({
   category: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  subscriptions: {type: Array, default: []}
 });
 CommunitySchema.set('autoIndex', false);
 CommunitySchema.pre('save', function(next) {

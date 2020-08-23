@@ -11,7 +11,6 @@ const ALL_COMMUNITIES_QUERY = gql`
       picture
       likes
       threads_count
-      subscriptions
     }
   }
 `;

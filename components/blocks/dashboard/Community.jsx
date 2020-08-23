@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { get } from 'lodash';
-import { MdNotificationsNone, MdNotifications } from 'react-icons/md';
 import { Link } from '../../../routes';
 import { scheme } from '../../../lib/theme';
 import { QueryStringConsumer } from '../../../lib/query.context';
@@ -57,7 +56,6 @@ const CommunityDescription = styled.div`
 const CommunityStats = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   margin-top: 10px;
 `;
@@ -160,7 +158,6 @@ const Community = ({ community }) => (
                     <ThreadsIcon fill={scheme.gray[7]} />
                     <CommunityStatValue>{community.threads_count}</CommunityStatValue>
                   </CommunityStat>
-                  <MdNotifications size={20} color="black" />
                 </CommunityStats>
               </CommunityDetails>
             </Container>

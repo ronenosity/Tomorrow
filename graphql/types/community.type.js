@@ -50,6 +50,5 @@ export const CommunityType = new GraphQLObjectType({
         return threads_count;
       },
     },
-    subscriptions: { type: GraphQLList(GraphQLString) }
   }),
 });
