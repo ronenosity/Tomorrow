@@ -8,6 +8,7 @@ import EDIT_COMMUNITY_MUTATION from '../../../front-end-mutations/edit-community
 import DELETE_COMMUNITY_MUTATION from '../../../front-end-mutations/delete-community';
 import Snack from '../../snack';
 import parseGraphQlErrors from '../../../utils/parseGraphQlErrors';
+import SUBSCRIBE_COMMUNITY_MUTATION from '../../../front-end-mutations/subscribe-community';
 
 interface CreateCommunityParams {
   variables: {
@@ -27,6 +28,7 @@ interface ContextValue {
   createCommunity: (params: CreateCommunityParams) => void;
   editCommunity: (params: CreateCommunityParams) => void;
   deleteCommunity: (params: CreateCommunityParams) => void;
+  subscribeCommunity: (params: CreateCommunityParams) => void;
   refetch: () => void;
 }
 const INITIAL_VALUES = {
@@ -37,15 +39,33 @@ const INITIAL_VALUES = {
   createCommunity: noop,
   editCommunity: noop,
   deleteCommunity: noop,
+  subscribeCommunity: noop,
   refetch: noop,
 };
+
+interface Community {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  slug: string;
+  picture: string;
+  likes: string;
+  threads_count: string;
+  subscriptions: string[];
+}
+
+interface Communities {
+  communities: Community[];
+}
 
 const CommunitiesContext = createContext(INITIAL_VALUES);
 
 const useCommunitiesContextInitialValue = (): ContextValue => {
-  const [communities, setCommunities] = useState(null);
+  const [communities, setCommunities] = useState({} as Communities);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [subscribeCommunity, { loading: subscribingLoading, error: subscribingError }] = useMutation(SUBSCRIBE_COMMUNITY_MUTATION);
   const [createCommunity, { loading: creatingLoading, error: creatingError }] = useMutation(CREATE_COMMUNITY_MUTATION);
   const [editCommunity, { loading: editLoading, error: editError }] = useMutation(EDIT_COMMUNITY_MUTATION);
   const [deleteCommunity, { loading: deleteLoading, error: deleteError }] = useMutation(DELETE_COMMUNITY_MUTATION);
@@ -53,12 +73,12 @@ const useCommunitiesContextInitialValue = (): ContextValue => {
 
   useEffect(() => {
     setCommunities(get(data, 'communities'));
-    setLoading(qLoading || creatingLoading || editLoading || deleteLoading);
-  }, [qLoading, data, setLoading, setCommunities, creatingLoading, editLoading, deleteLoading]);
+    setLoading(qLoading || creatingLoading || editLoading || deleteLoading || subscribingLoading);
+  }, [subscribingLoading, qLoading, data, setLoading, setCommunities, creatingLoading, editLoading, deleteLoading]);
 
   useEffect(() => {
-    setError(qError || editError || creatingError || editError || deleteError);
-  }, [qError, editError, creatingError, setError, deleteError]);
+    setError(qError || editError || creatingError || editError || deleteError || subscribingError);
+  }, [subscribingError, qError, editError, creatingError, setError, deleteError]);
 
   return {
     communities,
@@ -69,6 +89,7 @@ const useCommunitiesContextInitialValue = (): ContextValue => {
     refetch,
     editCommunity,
     deleteCommunity,
+    subscribeCommunity,
   };
 };
 

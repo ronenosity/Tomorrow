@@ -29,11 +29,9 @@ const AllCommunities = () => {
             <h1>{category.name}</h1>
             <Box>
               {map(community, c => (
-                <Link Link route="dashboard" params={{ c: c.slug }}>
-                  <div style={{padding: 5}}>
-                    <CommunityCard community={c} />
-                  </div>
-                </Link>
+                <div style={{padding: 5}}>
+                  <CommunityCard community={c} />
+                </div>
                 ))}
             </Box>
           </div>
