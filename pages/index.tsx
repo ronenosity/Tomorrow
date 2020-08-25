@@ -8,6 +8,8 @@ import Navigation from '../components/blocks/navigation/navigation.component';
 import Communities from '../components/blocks/dashboard/Communities'
 import Threads from '../components/blocks/dashboard/Threads';
 import Thread from '../components/blocks/dashboard/Thread';
+import AllCommunities from '../components/blocks/all-communities';
+import { useAuthContext } from '../components/contexts/auth';
 
 const Dashboard = styled.div`
   position: absolute;
@@ -21,7 +23,8 @@ const Dashboard = styled.div`
   grid-template-columns: 350px 450px auto;
 `;
 
-export default props => {
+const Index = props => {
+  const { user } = useAuthContext();
   return (
     <>
       <Head>
@@ -31,7 +34,9 @@ export default props => {
         <App>
           <Dashboard>
             <Navigation />
-            <Communities />
+            {user && (
+              <Communities />
+            )}
             {props.query.c && <Threads community={props.query.c} />}
             {props.query.t && <Thread community={props.query.c} thread={props.query.t} />}
           </Dashboard>

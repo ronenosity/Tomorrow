@@ -17,7 +17,31 @@ const useStyles = makeStyles({
 interface Props {
   community: Record<any, any>;
 }
-const CommunityCard: React.FC<Props> = ({ community }: Props) => {
+
+const SubscribeContainer = styled(Box)`
+  position: absolute;
+  outline: white 1px;
+`;
+
+const Teste = ({ slug, picture, name, style }) => (
+  <Link route="dashboard" params={{ c: String(slug) }}>
+    <CardMedia className={style} image={picture} title={name} />
+  </Link>
+);
+
+interface Community {
+  community: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    title: string;
+    category: string;
+    picture: string;
+  };
+}
+
+const CommunityCard = ({ community }: Community) => {
   const classes = useStyles();
   const { isAdmin } = useAuthContext();
   const { deleteCommunity, loading, refetch } = useCommunitiesContext();
@@ -34,6 +58,18 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
   return (
     <>
       <Card className={classes.root}>
+        <SubscribeContainer>
+          {isSubscribed ? (
+            <IconButton>
+              <MdNotifications stroke="white" strokeWidth={1} size={30} color="black"  />
+            </IconButton>
+          ): (
+            <IconButton onClick={onClickSubscribe}>
+              <MdNotificationsNone stroke="white" strokeWidth={1} size={30} color="black" />
+            </IconButton>
+          )}
+        </SubscribeContainer>
+        <CardMedia className={classes.media} image={community.picture} title={community.title} />
         <CardActionArea onClick={toggle}>
           <CardMedia className={classes.media} image={community.picture} title={community.name} />
           <CardContent>
