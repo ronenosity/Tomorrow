@@ -27,7 +27,25 @@ const SubscribeContainer = styled(Box)`
   outline: white 1px;
 `;
 
-const CommunityCard: React.FC<Props> = ({ community }: Props) => {
+const Teste = ({ slug, picture, name, style }) => (
+  <Link route="dashboard" params={{ c: String(slug) }}>
+    <CardMedia className={style} image={picture} title={name} />
+  </Link>
+);
+
+interface Community {
+  community: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    title: string;
+    category: string;
+    picture: string;
+  };
+}
+
+const CommunityCard = ({ community }: Community) => {
   const classes = useStyles();
   const { isAdmin } = useAuthContext();
   const { deleteCommunity, subscribeCommunity, loading, refetch } = useCommunitiesContext();
@@ -63,9 +81,7 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
             </IconButton>
           )}
         </SubscribeContainer>
-        <Link route="dashboard" params={{ c: community.slug }}>
-          <CardMedia className={classes.media} image={community.picture} title={community.name} />
-        </Link>
+        <CardMedia className={classes.media} image={community.picture} title={community.title} />
         <CardActionArea onClick={toggle}>
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
