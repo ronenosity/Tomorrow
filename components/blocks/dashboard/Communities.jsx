@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { scheme } from '../../../lib/theme';
 
 import Community from './Community';
+import useSubscribedCommunities from "../../../hooks/useSubscribedCommunities";
 
 const Container = styled.div`
   grid-area: communities;
@@ -17,16 +18,6 @@ const Container = styled.div`
 
 export const ALL_COMMUNITIES_QUERY = gql`
   query ALL_COMMUNITIES_QUERY {
-    communities {
-      id
-      name
-      description
-      category
-      slug
-      picture
-      likes
-      threads_count
-    }
     categories {
       id
       name
@@ -35,10 +26,11 @@ export const ALL_COMMUNITIES_QUERY = gql`
 `;
 
 const Communities = () => {
+  const communities = useSubscribedCommunities();
   return (
     <Container>
       <Query query={ALL_COMMUNITIES_QUERY}>
-        {({ loading, error, data: { communities, categories } }) => {
+        {({ loading, error, data: { categories } }) => {
           if (error) return <div>Error loading posts</div>;
           if (loading) return <div>loading...</div>;
           return (
