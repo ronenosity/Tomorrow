@@ -63,9 +63,7 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
             </IconButton>
           )}
         </SubscribeContainer>
-        <Link route="dashboard" params={{ c: community.slug }}>
-          <CardMedia className={classes.media} image={community.picture} title={community.name} />
-        </Link>
+        <CardMedia className={classes.media} image={community.picture} title={community.name} />
         <CardActionArea onClick={toggle}>
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
