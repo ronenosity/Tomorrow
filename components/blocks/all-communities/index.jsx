@@ -28,11 +28,12 @@ const AllCommunities = () => {
           <div>
             <h1>{category.name}</h1>
             <Box>
-              {map(community, c => (
-                <div style={{padding: 5}}>
-                  <CommunityCard community={c} />
-                </div>
-                ))}
+              {map(community, c => {
+                return (
+                  <div style={{padding: 5}}>
+                    <CommunityCard community={c} />
+                  </div>
+                );})}
             </Box>
           </div>
         );
