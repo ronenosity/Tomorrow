@@ -8,8 +8,7 @@ import Navigation from '../components/blocks/navigation/navigation.component';
 import Communities from '../components/blocks/dashboard/Communities'
 import Threads from '../components/blocks/dashboard/Threads';
 import Thread from '../components/blocks/dashboard/Thread';
-import AllCommunities from '../components/blocks/all-communities';
-import { useAuthContext } from '../components/contexts/auth';
+import {useAuthContext} from "../components/contexts/auth";
 
 const Dashboard = styled.div`
   position: absolute;
@@ -24,7 +23,7 @@ const Dashboard = styled.div`
 `;
 
 const Index = props => {
-  const { user } = useAuthContext();
+  const { user } = useAuthContext()
   return (
     <>
       <Head>

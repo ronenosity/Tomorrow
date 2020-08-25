@@ -5,7 +5,7 @@ import {useCommunitiesContext} from "../components/contexts/communities";
 const useIsUserSubscribed = (id) => {
   const { user } = useAuthContext();
   const { communities } = useCommunitiesContext();
-  if (!user) {
+  if(!user) {
     return !isEmpty(user);
   }
   const community = find(communities, c => c.id === id);
