@@ -23,6 +23,7 @@
     },
     "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
     "rules": {
+        "import/prefer-default-export": "off",
         "consistent-return": "off",
         "react/prop-types": "off",
         "@typescript-eslint/explicit-function-return-type": "off",

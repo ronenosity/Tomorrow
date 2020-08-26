@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Box, IconButton } from '@material-ui/core';
 import { MdNotificationsNone, MdNotifications } from 'react-icons/md';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
 import FormDialog from '../new-edit-community/dialog';
 import useIsOpen from '../../../hooks/useIsOpen';
 import { useCommunitiesContext } from '../../contexts/communities';
@@ -27,10 +28,12 @@ const SubscribeContainer = styled(Box)`
   outline: white 1px;
 `;
 
+const Greet = ({ name }) => <div>Hello {name}</div>;
+
 const CommunityCard: React.FC<Props> = ({ community }: Props) => {
   const classes = useStyles();
-  const { isAdmin } = useAuthContext();
-  const { deleteCommunity, subscribeCommunity, loading, refetch } = useCommunitiesContext();
+  const { isAdmin, user } = useAuthContext();
+  const { deleteCommunity, subscribeCommunity, unsubscribeCommunity, loading, refetch } = useCommunitiesContext();
   const { isOpen, close, toggle } = useIsOpen();
 
   const onClickDelete = useCallback(async () => {
@@ -39,9 +42,20 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
   }, [refetch, deleteCommunity, community]);
 
   const onClickSubscribe = useCallback(async () => {
+    if (!user) {
+      return toast.error('You must be logged in to subscribe');
+    }
     await subscribeCommunity({ variables: { id: community.id } });
     refetch();
-  }, [refetch, community, subscribeCommunity]);
+  }, [user, subscribeCommunity, community.id, refetch]);
+
+  const onClickUnsubscribe = useCallback(async () => {
+
+     await unsubscribeCommunity({ variables: { id: community.id } });
+     refetch();
+
+
+  }, [unsubscribeCommunity, community.id, refetch]);
 
   useEffect(() => {
     refetch();
@@ -54,7 +68,7 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
       <Card className={classes.root}>
         <SubscribeContainer>
           {isSubscribed ? (
-            <IconButton>
+            <IconButton onClick={onClickUnsubscribe}>
               <MdNotifications stroke="white" strokeWidth={1} size={30} color="black"  />
             </IconButton>
           ): (

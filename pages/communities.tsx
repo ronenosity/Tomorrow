@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from "next/head";
 import styled from "styled-components";
+import { ToastContainer } from 'react-toastify';
 import App from '../components/App';
 
 import Navigation from "../components/blocks/navigation/navigation.component";
@@ -22,6 +23,7 @@ const CommunitiesPage = () => {
           <Navigation />
           <AllCommunities />
         </Dashboard>
+        <ToastContainer />
       </App>
     </>
   );

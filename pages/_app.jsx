@@ -10,6 +10,7 @@ import AuthProvider from '../components/contexts/auth';
 import CommunitiesProvider from '../components/contexts/communities';
 import CategoriesProvider from "../components/contexts/categories";
 import "react-datepicker/dist/react-datepicker.css";
+import 'react-toastify/dist/ReactToastify.min.css';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

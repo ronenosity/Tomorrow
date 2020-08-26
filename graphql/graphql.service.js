@@ -20,6 +20,7 @@ import { UpdateUser } from './mutations/update-user.mutation';
 import { UpdatePassword } from './mutations/update-password.mutation';
 import { CreateCommunity } from './mutations/create-community.mutation';
 import { SubscribeCommunity } from "./mutations/subscribe-community.mutation";
+import { UnsubscribeCommunity } from "./mutations/unsubscribe-community.mutation";
 import { EditCommunity } from './mutations/edit-community.mutation';
 import { DeleteCommunity } from './mutations/delete-community.mutation';
 import { CreateThread } from './mutations/create-thread.mutation';
@@ -80,6 +81,7 @@ const GraphQLService = () => {
       updateCategory: EditCategory(),
       updatePassword: UpdatePassword(),
       subscribeCommunity: SubscribeCommunity(),
+      unsubscribeCommunity: UnsubscribeCommunity(),
       /* Delete Mutations */
       deleteCategory: DeleteCategory(),
     }),

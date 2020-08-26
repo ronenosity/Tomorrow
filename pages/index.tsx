@@ -23,7 +23,7 @@ const Dashboard = styled.div`
 `;
 
 const Index = props => {
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
   return (
     <>
       <Head>

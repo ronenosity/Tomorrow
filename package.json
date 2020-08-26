@@ -50,6 +50,7 @@
     "react-icons": "^3.10.0",
     "react-responsive-carousel": "^3.2.9",
     "react-textarea-autosize": "^7.1.0-1",
+    "react-toastify": "^6.0.8",
     "styled-components": "^4.0.3",
     "yup": "^0.29.1"
   },
