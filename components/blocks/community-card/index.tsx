@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Box, IconButton } from '@material-ui/core';
 import { MdNotificationsNone, MdNotifications } from 'react-icons/md';
@@ -9,7 +9,6 @@ import useIsOpen from '../../../hooks/useIsOpen';
 import { useCommunitiesContext } from '../../contexts/communities';
 import {useAuthContext} from "../../contexts/auth";
 import useIsUserSubscribed from '../../../hooks/useIsUserSubscribed';
-import Link from "../../../routes";
 
 const useStyles = makeStyles({
   root: {
@@ -28,12 +27,10 @@ const SubscribeContainer = styled(Box)`
   outline: white 1px;
 `;
 
-const Greet = ({ name }) => <div>Hello {name}</div>;
-
 const CommunityCard: React.FC<Props> = ({ community }: Props) => {
   const classes = useStyles();
   const { isAdmin, user } = useAuthContext();
-  const { deleteCommunity, subscribeCommunity, unsubscribeCommunity, loading, refetch } = useCommunitiesContext();
+  const { deleteCommunity, subscribeCommunity, unsubscribeCommunity, refetch } = useCommunitiesContext();
   const { isOpen, close, toggle } = useIsOpen();
 
   const onClickDelete = useCallback(async () => {
@@ -42,24 +39,21 @@ const CommunityCard: React.FC<Props> = ({ community }: Props) => {
   }, [refetch, deleteCommunity, community]);
 
   const onClickSubscribe = useCallback(async () => {
-    if (!user) {
-      return toast.error('You must be logged in to subscribe');
+    try {
+      if (!user) {
+        return toast.error('You must be logged in to subscribe');
+      }
+      await subscribeCommunity({ variables: { id: community.id } });
+      refetch();
+    } catch (err) {
+      console.log(err);
     }
-    await subscribeCommunity({ variables: { id: community.id } });
-    refetch();
   }, [user, subscribeCommunity, community.id, refetch]);
 
   const onClickUnsubscribe = useCallback(async () => {
-
-     await unsubscribeCommunity({ variables: { id: community.id } });
-     refetch();
-
-
-  }, [unsubscribeCommunity, community.id, refetch]);
-
-  useEffect(() => {
+    await unsubscribeCommunity({ variables: { id: community.id } });
     refetch();
-  }, [loading, refetch, community]);
+  }, [unsubscribeCommunity, community.id, refetch]);
 
   const isSubscribed = useIsUserSubscribed(community.id);
 
